@@ -82,8 +82,8 @@ class _PengumumanState extends State<pengumumanHome> {
               trailing: GestureDetector(
                 child: Icon(Icons.delete),
                 onTap: () async {
-                  int result =
-                      await dbHelper.delete(this.pengumumanList[index].id);
+                  int result = await dbHelper
+                      .deletePengumuman(this.pengumumanList[index].id);
                   if (result > 0) {
                     updateListView();
                   }
@@ -93,7 +93,7 @@ class _PengumumanState extends State<pengumumanHome> {
                 var pengumuman = await navigateToPengumumanEntryForm(
                     context, this.pengumumanList[index]);
                 if (pengumuman != null) {
-                  int result = await dbHelper.update(pengumuman);
+                  int result = await dbHelper.updatePengumuman(pengumuman);
                   if (result > 0) {
                     updateListView();
                   }
