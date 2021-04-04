@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:informasi_mhs/drawerNav.dart';
 
 // ignore: camel_case_types
-class data_nilai extends StatefulWidget {
+class pengumumanHome extends StatefulWidget {
   @override
-  _DataNilaiState createState() => _DataNilaiState();
+  _pengumumanState createState() => _pengumumanState();
 }
 
-class _DataNilaiState extends State<data_nilai> {
+class _pengumumanState extends State<pengumumanHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Informasi Data Nilai Mahasiswa'),
+        title: Text('Announcement'),
       ),
       drawer: DrawerNav(),
     );

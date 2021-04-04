@@ -1,3 +1,4 @@
+import 'package:informasi_mhs/pengumuman.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
@@ -11,26 +12,43 @@ class DbHelper {
   Future<Database> initDb() async {
 //untuk menentukan nama database dan lokasi yg dibuat
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'item.db';
+    String path = directory.path + 'informasi_mhs.db';
 //create, read databases
-    var itemDatabase = openDatabase(path, version: 6, onCreate: _createDb);
+    var itemDatabase = openDatabase(path,
+        version: 6, onCreate: _createDb, onUpgrade: _onUpgrade);
 //mengembalikan nilai object sebagai hasil dari fungsinya
     return itemDatabase;
   }
 
+//update tabel baru
+  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    _createDb(db, newVersion);
+  }
+
 //buat tabel baru dengan nama item
   void _createDb(Database db, int version) async {
-    await db.execute('''
-CREATE TABLE item (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-nim  INTEGER,
-name TEXT,
-kelas TEXT,
-alamat TEXT,
-jurusan TEXT,
-jk TEXT
-)
-''');
+    var batch = db.batch();
+    batch.execute('DROP TABLE IF EXIST item');
+    batch.execute('DROP TABLE IF EXIST pengumuman');
+    batch.execute('''
+      CREATE TABLE item (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nim  INTEGER,
+      name TEXT,
+      kelas TEXT,
+      alamat TEXT,
+      jurusan TEXT,
+      jk TEXT
+      )
+      ''');
+    batch.execute('''
+      CREATE TABLE pengumuman(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      judul TEXT,
+      deskripsi TEXT,
+      )
+    ''');
+    await batch.commit();
   }
 
 //select databases
@@ -40,10 +58,22 @@ jk TEXT
     return mapList;
   }
 
+  Future<List<Map<String, dynamic>>> selectPengumuman() async {
+    Database db = await this.initDb();
+    var mapList = await db.query('pengumuman', orderBy: 'judul');
+    return mapList;
+  }
+
 //create databases
   Future<int> insert(Item object) async {
     Database db = await this.initDb();
     int count = await db.insert('item', object.toMap());
+    return count;
+  }
+
+  Future<int> insertPengumuman(Pengumuman object) async {
+    Database db = await this.initDb();
+    int count = await db.insert('pengumuman', object.toMap());
     return count;
   }
 
@@ -55,6 +85,13 @@ jk TEXT
     return count;
   }
 
+  Future<int> updatePengumuman(Pengumuman object) async {
+    Database db = await this.initDb();
+    int count = await db.update('pengumuman', object.toMap(),
+        where: 'id=?', whereArgs: [object.id]);
+    return count;
+  }
+
 //delete databases
   Future<int> delete(int id) async {
     Database db = await this.initDb();
@@ -62,6 +99,13 @@ jk TEXT
     return count;
   }
 
+  Future<int> deletePengumuman(int id) async {
+    Database db = await this.initDb();
+    int count = await db.delete('pengumuman', where: 'id=?', whereArgs: [id]);
+    return count;
+  }
+
+//list
   Future<List<Item>> getItemList() async {
     var itemMapList = await select();
     int count = itemMapList.length;
@@ -70,6 +114,16 @@ jk TEXT
       itemList.add(Item.fromMap(itemMapList[i]));
     }
     return itemList;
+  }
+
+  Future<List<Pengumuman>> getPengumumanList() async {
+    var pengumumanMapList = await selectPengumuman();
+    int count = pengumumanMapList.length;
+    List<Pengumuman> pengumumanList = [];
+    for (int i = 0; i < count; i++) {
+      pengumumanList.add(Pengumuman.fromMap(pengumumanMapList[i]));
+    }
+    return pengumumanList;
   }
 
   factory DbHelper() {

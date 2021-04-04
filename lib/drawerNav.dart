@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:informasi_mhs/data_mhs.dart';
-import 'package:informasi_mhs/data_nilai.dart';
+import 'package:informasi_mhs/pengumumanHome.dart';
 
 class DrawerNav extends StatefulWidget {
   @override
@@ -31,8 +31,8 @@ class _DrawerNavState extends State<DrawerNav> {
             ListTile(
               leading: Icon(Icons.library_add),
               title: Text("Nilai Mahasiswa"),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => data_nilai())),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => pengumumanHome())),
             ),
           ],
         ),
