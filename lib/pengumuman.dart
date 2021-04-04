@@ -3,13 +3,13 @@ class Pengumuman {
   String _judul;
   String _deskripsi;
 
-  int get id => this._id;
+  get id => this._id;
 
-  String get judul => this._judul;
-  set judul(String value) => this._judul = value;
+  get judul => this._judul;
+  set judul(value) => this._judul = value;
 
-  String get deskripsi => this._deskripsi;
-  set deskripsi(String value) => this._deskripsi = value;
+  get deskripsi => this._deskripsi;
+  set deskripsi(value) => this._deskripsi = value;
 
   //konstruktor Versi 1
   Pengumuman(this._judul, this._deskripsi);
