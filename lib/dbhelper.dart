@@ -15,7 +15,7 @@ class DbHelper {
     String path = directory.path + 'informasi_mhs.db';
 //create, read databases
     var itemDatabase = openDatabase(path,
-        version: 6, onCreate: _createDb, onUpgrade: _onUpgrade);
+        version: 12, onCreate: _createDb, onUpgrade: _onUpgrade);
 //mengembalikan nilai object sebagai hasil dari fungsinya
     return itemDatabase;
   }
@@ -28,24 +28,24 @@ class DbHelper {
 //buat tabel baru dengan nama item
   void _createDb(Database db, int version) async {
     var batch = db.batch();
-    batch.execute('DROP TABLE IF EXIST item');
-    batch.execute('DROP TABLE IF EXIST pengumuman');
+    batch.execute('DROP TABLE IF EXISTS item');
+    batch.execute('DROP TABLE IF EXISTS pengumuman');
     batch.execute('''
       CREATE TABLE item (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nim  INTEGER,
       name TEXT,
       kelas TEXT,
-      alamat TEXT,
       jurusan TEXT,
-      jk TEXT
+      jk TEXT,
+      alamat TEXT
       )
       ''');
     batch.execute('''
       CREATE TABLE pengumuman(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       judul TEXT,
-      deskripsi TEXT,
+      deskripsi TEXT
       )
     ''');
     await batch.commit();

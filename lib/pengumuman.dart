@@ -3,6 +3,8 @@ class Pengumuman {
   String _judul;
   String _deskripsi;
 
+  static var pengumuman;
+
   get id => this._id;
 
   get judul => this._judul;
@@ -21,11 +23,12 @@ class Pengumuman {
     this._deskripsi = map['deskripsi'];
   }
 
-  // konversi dari Item ke Map
+  // konversi dari pengumuman ke Map
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['id'] = this._id;
     map['judul'] = this._judul;
     map['deskripsi'] = this._deskripsi;
+    return map;
   }
 }

@@ -16,9 +16,9 @@ class EntryFormState extends State<EntryForm> {
   TextEditingController nimController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController kelasController = TextEditingController();
-  TextEditingController alamatController = TextEditingController();
   TextEditingController jurusanController = TextEditingController();
   TextEditingController jkController = TextEditingController();
+  TextEditingController almtController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class EntryFormState extends State<EntryForm> {
       nimController.text = item.nim.toString();
       nameController.text = item.name;
       kelasController.text = item.kelas;
-      alamatController.text = item.alamat;
       jurusanController.text = item.jurusan;
       jkController.text = item.jk;
+      almtController.text = item.almt;
     }
     //rubah
     return Scaffold(
@@ -94,24 +94,6 @@ class EntryFormState extends State<EntryForm> {
                 ),
               ),
 
-              // Alamat
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: TextField(
-                  controller: alamatController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Alamat',
-                    // border: OutlineInputBorder(
-                    //   borderRadius: BorderRadius.circular(5.0),
-                    // ),
-                  ),
-                  onChanged: (value) {
-                    //
-                  },
-                ),
-              ),
-
               // jurusan
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -148,6 +130,24 @@ class EntryFormState extends State<EntryForm> {
                 ),
               ),
 
+              //alamat
+              Padding(
+                padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                child: TextField(
+                  controller: almtController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Alamat',
+                    // border: OutlineInputBorder(
+                    //   borderRadius: BorderRadius.circular(5.0),
+                    // ),
+                  ),
+                  onChanged: (value) {
+                    //
+                  },
+                ),
+              ),
+
               // tombol button
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -169,17 +169,17 @@ class EntryFormState extends State<EntryForm> {
                                 int.parse(nimController.text),
                                 nameController.text,
                                 kelasController.text,
-                                alamatController.text,
                                 jurusanController.text,
-                                jkController.text);
+                                jkController.text,
+                                almtController.text);
                           } else {
                             // ubah data
                             item.nim = int.parse(nimController.text);
                             item.name = nameController.text;
                             item.kelas = kelasController.text;
-                            item.alamat = alamatController.text;
                             item.jurusan = jurusanController.text;
                             item.jk = jkController.text;
+                            item.almt = almtController.text;
                           }
                           // kembali ke layar sebelumnya dengan membawa objek item
                           Navigator.pop(context, item);

@@ -3,9 +3,9 @@ class Item {
   int _nim;
   String _name;
   String _kelas;
-  String _alamat;
   String _jurusan;
   String _jk;
+  String _almt;
 
   int get id => _id;
 
@@ -18,18 +18,17 @@ class Item {
   String get kelas => this._kelas;
   set kelas(String value) => this._kelas = value;
 
-  String get alamat => this._alamat;
-  set alamat(String value) => this.alamat = value;
-
   String get jurusan => this._jurusan;
   set jurusan(String value) => this._jurusan = value;
 
   String get jk => this._jk;
   set jk(String value) => this._jk = value;
 
+  get almt => this._almt;
+  set almt(value) => this._almt = value;
+
   // konstruktor versi 1
-  Item(this._nim, this._name, this._kelas, this._alamat, this._jurusan,
-      this._jk);
+  Item(this._nim, this._name, this._kelas, this._jurusan, this._jk, this._almt);
 
   // konstruktor versi 2: konversi dari Map ke Item
   Item.fromMap(Map<String, dynamic> map) {
@@ -37,9 +36,9 @@ class Item {
     this._nim = map['nim'];
     this._name = map['name'];
     this._kelas = map['kelas'];
-    this._alamat = map['alamat'];
     this._jurusan = map['jurusan'];
     this._jk = map['jk'];
+    this._almt = map['alamat'];
   }
 
   // konversi dari Item ke Map
@@ -49,9 +48,9 @@ class Item {
     map['nim'] = nim;
     map['name'] = name;
     map['kelas'] = kelas;
-    map['alamat'] = alamat;
     map['jurusan'] = jurusan;
     map['jk'] = jk;
+    map['alamat'] = almt;
     return map;
   }
 }

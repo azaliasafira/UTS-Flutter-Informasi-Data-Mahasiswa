@@ -16,9 +16,14 @@ class _DataState extends State<DataMhs> {
   int count = 0;
   List<Item> itemList;
 
+  void initState() {
+    super.initState();
+    updateListView();
+  }
+
   @override
   Widget build(BuildContext context) {
-    updateListView();
+    // updateListView();
     if (itemList == null) {
       itemList = [];
     }

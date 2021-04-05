@@ -30,7 +30,7 @@ class _DrawerNavState extends State<DrawerNav> {
             ),
             ListTile(
               leading: Icon(Icons.library_add),
-              title: Text("Nilai Mahasiswa"),
+              title: Text("Announcement"),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => pengumumanHome())),
             ),

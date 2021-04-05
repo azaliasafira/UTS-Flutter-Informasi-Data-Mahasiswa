@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 // ignore: camel_case_types
 class pengumumanHome extends StatefulWidget {
+  // static const pengumumanPage = '/pengumuman';
   @override
   _PengumumanState createState() => _PengumumanState();
 }
